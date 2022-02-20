@@ -1,0 +1,25 @@
+version: '3'
+volumes:
+   portainer_data:
+services:
+  jupyter:
+    image: catecb/bdp2_midterm_review 
+    ports:
+      - 8888:8888
+    volumes:
+      - /home/enigma/review/work:/home/jovyan/work
+    user: root
+    environment:
+      - JUPYTER_TOKEN=bdp_psw
+      - CHOWN_HOME=yes
+      - GEN_CERT=yes
+
+  portainer:
+    image: catecb/portainer
+    restart: always
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
